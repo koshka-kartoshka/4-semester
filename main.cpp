@@ -1,27 +1,70 @@
 #include <iostream>
+#include <sstream>
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
+int ground = 256;
+
+class PLAYER 
+{	
+	public:
+	float dx, dy;
+	FloatRect rect;
+	bool onGround;
+	Sprite sprite;
+	float currentFrame;
+		 PLAYER(Texture &image)
+		 {
+			 sprite.setTexture(image);
+			 rect = FloatRect(128,128,128,128);
+			 dx=dy=0;
+			 currentFrame = 0;
+		 }
+	
+	void update(float time)
+	{
+		rect.left += dx * time * 0.001;
+		if(!onGround) dy=dy + 0.0000001*time;
+		rect.top += dy * time*0.0000001;
+		onGround = false;
+		if (rect.top > onGround)
+		{
+			rect.top = ground; 
+			dy = 0;
+			onGround = true;
+		}
+
+		currentFrame += 0.000017*time;
+		if (currentFrame>9) currentFrame -=9;
+
+		if (dx<0)	sprite.setTextureRect(IntRect(128*int(currentFrame)+128,256,-128,128));
+		if (dx>0)	sprite.setTextureRect(IntRect(128*int(currentFrame),256,128,128));	
+		sprite.setPosition(rect.left, rect.top);
+		dx=0;
+	}
+};
+
 int main() 
 { 
-    RenderWindow window(VideoMode(800,1600), "Test");
-	CircleShape MyCircle(100.f);
-	MyCircle.setFillColor(Color::Green);
-
+    RenderWindow window(VideoMode(1600,800), "Test");
+	
 	Texture t;
 	t.loadFromFile("dinasor.jpg");
 
 	float currentFrame=0;
 
-	Sprite s;
-	s.setTexture(t);
-	s.setTextureRect(IntRect(0,256,128,128));
-	s.setPosition(50,100);
+	PLAYER p(t);
+
+	Clock clock;
 
 	while (window.isOpen())
 	{
+		float time = clock.getElapsedTime().asMicroseconds();
+		clock.restart();
+
 		Event event;
 		while (window.pollEvent(event))
+		
 		{
 		if (event.type == Event::Closed)
 			window.close();
@@ -29,37 +72,30 @@ int main()
 
 		if (Keyboard::isKeyPressed(Keyboard::Left))
 		{
-			s.move(-0.1,0);
-
+			p.dx = -0.3;
+			
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::Right))
 		{
-			s.move(0.1,0);
-
-			currentFrame += 0.006;
-			if (currentFrame>9) currentFrame -=9;
-
-			s.setTextureRect(IntRect(128*int(currentFrame),256,128,128));
-
+			p.dx = 0.3;
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::Up))
 		{
-			s.move(0,-0.1);
+			if (p.onGround)
+			{
+				p.dy=-1000000;
+				p.onGround=false;
+			}
+			
 		}
 
-		if (Keyboard::isKeyPressed(Keyboard::Down))
-		{
-			s.move(0,0.1);
-		}
-
-
-		window.clear();
-		window.draw(s);
+		p.update(time);
+		window.clear(Color::Black);
+		window.draw(p.sprite);
 		window.display();
-
 	}
-
     return 0; 
 }
+
