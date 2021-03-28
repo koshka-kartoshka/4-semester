@@ -23,18 +23,18 @@ class PLAYER
 	
 	void update(float time)
 	{
-		rect.left += dx * time * 0.001;
-		if(!onGround) dy=dy + 0.0000001*time;
-		rect.top += dy * time*0.0000001;
+		rect.left += dx * time;
+		if(!onGround) dy=dy + 0.0005*time;
+		rect.top += dy * time;
 		onGround = false;
-		if (rect.top > onGround)
+		if (rect.top > ground)
 		{
 			rect.top = ground; 
 			dy = 0;
 			onGround = true;
 		}
 
-		currentFrame += 0.000017*time;
+		currentFrame += 0.005*time;
 		if (currentFrame>9) currentFrame -=9;
 
 		if (dx<0)	sprite.setTextureRect(IntRect(128*int(currentFrame)+128,256,-128,128));
@@ -61,6 +61,8 @@ int main()
 	{
 		float time = clock.getElapsedTime().asMicroseconds();
 		clock.restart();
+		 
+		time = time/800;
 
 		Event event;
 		while (window.pollEvent(event))
@@ -72,20 +74,20 @@ int main()
 
 		if (Keyboard::isKeyPressed(Keyboard::Left))
 		{
-			p.dx = -0.3;
+			p.dx = -0.1;
 			
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::Right))
 		{
-			p.dx = 0.3;
+			p.dx = 0.1;
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::Up))
 		{
 			if (p.onGround)
 			{
-				p.dy=-1000000;
+				p.dy=-0.4;
 				p.onGround=false;
 			}
 			
