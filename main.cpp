@@ -1,9 +1,42 @@
 #include <iostream>
+#include <string>
 #include <sstream>
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
-int ground = 256;
+int ground = 400;
+
+const int Hight = 24;
+const int Width = 40;
+
+String TileMap[Hight]= 
+{
+
+"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+"W                           W          W",
+"W                                      W",
+"W                                      W",
+"W                           W          W",
+"W         0000           WWWW          W",
+"W         WWWW           WWWW          W",
+"W                        WWWW          W",
+"W                        WWWW          W",
+"W                        WWWW          W",
+"W                        WWWW          W",
+"W                        WWWW          W",
+"W                        WWWW          W",
+"W                        WWWW          W",
+"W                        WWWW          W",
+"W           000             W          W",
+"W           WWW             W          W",
+"W    00000                  W          W",
+"W    WWWWW               WWWW          W",
+"W                                      W",
+"W                                      W",
+"W                                      W",
+"WWWWWWWW    WWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+
+};
 
 class PLAYER 
 {	
@@ -57,6 +90,8 @@ int main()
 
 	Clock clock;
 
+	RectangleShape rectangle;
+
 	while (window.isOpen())
 	{
 		float time = clock.getElapsedTime().asMicroseconds();
@@ -74,13 +109,13 @@ int main()
 
 		if (Keyboard::isKeyPressed(Keyboard::Left))
 		{
-			p.dx = -0.1;
+			p.dx = -0.4;
 			
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::Right))
 		{
-			p.dx = 0.1;
+			p.dx = 0.4;
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::Up))
@@ -95,6 +130,19 @@ int main()
 
 		p.update(time);
 		window.clear(Color::Black);
+
+		
+		for (int i=0; i<Hight; i++)
+			for (int j=0; j<Width; j++)
+				{
+					if (TileMap[i][j] == 'W') rectangle.setFillColor(Color::Yellow);
+					if (TileMap[i][j] == '0') rectangle.setFillColor(Color::Green);
+					if (TileMap[i][j] == ' ') continue;
+
+					rectangle.setPosition(j*32,i*32);
+					rectangle.setSize(sf::Vector2f(32,32));
+					window.draw(rectangle);
+				}
 		window.draw(p.sprite);
 		window.display();
 	}
