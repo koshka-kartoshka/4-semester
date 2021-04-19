@@ -11,36 +11,38 @@ float ofSetX=0;
 float ofSetY=0;
 
 const int Hight = 30;
-const int Width = 200;	 ;
+const int Width = 400;	 ;
 
 String TileMap[Hight]= 
 {
 
 "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
-"W                               W                                                                        W",
-"W                                                                                                W",
-"W                                                                                                    W",
-"W                               W                                                                                                            W",
-"W         0000               WWWW                                                                                                                          W",
-"W         WWWW                                                                                                          W",
-"W                                                                                                                                W",
-"W                                                                                                                                   W",
-"W                        WWWW                                                                                                            W",
-"W                    WWWWW                                                                                                               W",
-"W             WWWWWWWW                                 WWWWWWWWWWW                                                                        ",
-"W              WWW                        WWWWWWWWWWWWW           WWWWWWWWWWWWWW                                                           ",
-"W                                        WWWWW  W                              WWWWWWWWWWWW                                               ",
-"W                                   WWWWW       W                                                                            WWWWWWWWWWWWW",
-"W                               WWWW       W                                                                                   WWWWWWWWWWW ",
-"W                             WWWW               W                                                                      WWWWWWWWWWWWWWWWWWW",
-"W    00000          0000 WWWW                                                                                                             W",
-"W                     WWWW                           WWWW                                                                                 W",
-"W                                                                                                                                          W",
-"W                                                                                                                                          W",
-"W                                                                                                                                          W",
-"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW", 
+"W                               W                                                                  WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW      W",
+"W                                                                                          WWWWWWWWWWWWWWWWWWWWWWWWWW      W",
+"W                                                                                                  WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW  W",
+"W                               W                                                                                                  WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW          W",
+"W         0000               WWWW                                                                                                 WWWWWWWWWWWWWWWWWWWWWWWWWW                         W",
+"W         WWWW                                                                                                        WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW  W",
+"W                                                                                                                           WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW     W",
+"W                                                       000000000000000000     000000000000000000000                                                                   WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW    W",
+"W                        WWWW                           000000000000000000     000000000000000000000                                                                          WWWWWWWWWWWWWWWWWWWWW    W",
+"W                    WWWWW                              000000000000000                                                                              WWWWWWWWWWWWWWWWWW   W",
+"W             WWWWWWWW                                 WWWWWWWWWWW                                                                     WWWWWWWWWWWWWWWWWWWWWWWWW   ",
+"W              WWW                        WWWWWWWWWWWWW           WWWWWWWWWWWWWW                                                        WWWWWWWWWWWWWWWWWWWWWWWWW   ",
+"W                                        WWWWW  W                              WWWWWWWWWWWW                                                                                ",
+"W                                   WWWWW       W                                                WWWWWWW      WWWWWWWWWWWWWW                       WWWWWWWWWWWWWWWWWWWWWW  WWWWWWWWWWWWW",
+"W                               WWWW                                                                                  WWWWWWWWWWWWWWWWWWWWWWWW                                        WWWWWWWWWWW ",
+"W                             WWWW                                                                                                                 WWWWWWWWWWWWWWWWWWW",
+"W    00000          0000 WWWW                                                                                                WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW             W",
+"W                     WWWW                                                                                                                     WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW                            W",
+"W                                                                                                                                        WWWWWWWWWWWWWWWWWWWWWWWWWWWWW  W",
+"W                                                                                                                                     WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW     W",
+"W                                                                                                                                      WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW    W",
+"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW", 
 
 };
+
+
 
 class PLAYER 
 {	
@@ -142,12 +144,9 @@ bool life;
 	{ 
 		rect.left += dx*time;
 		Collision();
-		currentFrame+=time * 0.005;
-		if (currentFrame>2) currentFrame-=2;
-		sprite.setTextureRect(IntRect(180*int(currentFrame),0,180,180));
-		if (!life) sprite.setTextureRect(IntRect(720, 360, 180, 180));
+		sprite.setTextureRect(IntRect(0,0,165,172));
 		sprite.setPosition(rect.left - ofSetX, rect.top - ofSetY);
-
+		
 	}
 	
 	void Collision()
@@ -157,11 +156,21 @@ bool life;
 	 {
       if ((TileMap[i][j]=='W') || (TileMap[i][j]=='0'))
 	   {
-        if (dx > 0)      { rect.left = j*32 - rect.width; dx *= -1; }
-        if (dx < 0) { rect.left = j*32 + 32;         dx *= -1; }
+        if (dx > 0)      
+			{ 
+			rect.left = j*32 - rect.width;
+			dx *= -1;
+			 }
+        else if (dx < 0) 
+		{
+		 //sprite.setTextureRect(IntRect(180,180,-180,180));
+		 sprite.setPosition(rect.left - ofSetX, rect.top - ofSetY);
+		 rect.left = j*32 + 32;
+         dx *= -1; }
+        }
       }
     }
-  }
+	
 		
 };
 
@@ -172,14 +181,19 @@ int main()
 	
 	Texture t;
 	Texture evel;
+	Texture texture;
 	t.loadFromFile("Background.png");
-	evel.loadFromFile("vonkey.jpg");
+	evel.loadFromFile("donat.png");
+	texture.loadFromFile("tail.png");
+	Sprite wall(texture);
 
 	float currentFrame=0;
 
 	PLAYER p(t);
-	ENEMY enemy;
-	enemy.set(evel,2000,500);
+	ENEMY enemy1;
+	ENEMY enemy2;
+	enemy1.set(evel,1500,500);
+	enemy2.set(evel,2200,500);
 
 	Sprite tile(t);
 
@@ -223,13 +237,22 @@ int main()
 		}
 
 		p.update(time);
-		enemy.update(time);
+		enemy1.update(time);
+		enemy2.update(time);
 
 
-		if (p.rect.intersects(enemy.rect))
+		if (p.rect.intersects(enemy1.rect))
 		{
-			p.sprite.setColor(Color::Red);
-			//enemy.life=false;
+			enemy1.life=false;
+			std::cout<<"Game over";
+			window.close();
+		}
+
+		if (p.rect.intersects(enemy2.rect))
+		{
+			enemy2.life=false;
+			std::cout<<"Game over";
+			window.close();
 		}
 
 		if (p.rect.left>800) ofSetX=p.rect.left - 1600/2;
@@ -241,16 +264,22 @@ int main()
 		for (int i=0; i<Hight; i++)
 			for (int j=0; j<Width; j++)
 				{
-					if (TileMap[i][j] == 'W') rectangle.setFillColor(Color::Yellow);
-					if (TileMap[i][j] == '0') rectangle.setFillColor(Color::Green);
+					if (TileMap[i][j] == 'W')
+					{
+						wall.setTextureRect(IntRect(200,100,32,32));
+					}
+					if (TileMap[i][j] == '0') 
+					{
+						wall.setTextureRect(IntRect(700,100,32,32));
+					}
 					if (TileMap[i][j] == ' ') continue;
 
-					rectangle.setPosition(j*32 - ofSetX,i*32- ofSetY);
-					rectangle.setSize(sf::Vector2f(32,32));
-					window.draw(rectangle);
+					wall.setPosition(j*32 - ofSetX,i*32- ofSetY);
+					window.draw(wall);
 				}
 		window.draw(p.sprite);
-		window.draw(enemy.sprite);
+		window.draw(enemy1.sprite);
+		window.draw(enemy2.sprite);
 		window.display();
 	}
     return 0; 
