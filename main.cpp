@@ -2,6 +2,7 @@
 #include <string>
 #include <sstream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 using namespace sf;
 
 int ground = 400;
@@ -51,26 +52,27 @@ class PLAYER
 	FloatRect rect;
 	bool onGround;
 	Sprite sprite;
+	Sound coin;
 	float currentFrame;
-		 PLAYER(Texture &image)
-		 {
-			 sprite.setTexture(image);
-			 rect = FloatRect(128,128,128,128);
-			 dx=dy=0;
-			 currentFrame = 0;
-		 }
+	 PLAYER(Texture &image)
+	 {			
+		sprite.setTexture(image);
+		rect = FloatRect(128,128,128,128);
+		 dx=dy=0.5;
+		 currentFrame = 0;
+	 }
 	
 	void update(float time)
 	{
 		rect.left += dx * time;
 
-		Collision(0);
+		Collision(0, coin);
 
 		if(!onGround) dy=dy + 0.0005*time;
 		rect.top += dy * time;
 		onGround = false;
 
-		Collision(1);
+		Collision(1, coin);
 		
 
 		/*if (rect.top > ground)
@@ -91,7 +93,7 @@ class PLAYER
 	
 
 
-	void Collision(int dic)
+	void Collision(int dic, Sound coin)
 	{
 		for (int i=rect.top/32; i<(rect.top+rect.height)/32; i++)
 			for (int j=rect.left/32; j<(rect.left+rect.width)/32; j++)
@@ -101,10 +103,11 @@ class PLAYER
 					if ((dx>0) && (dic == 0)) rect.left = j*32 - rect.width;
 					if ((dx<0) && (dic == 0)) rect.left = j*32 + 32; 
 					if ((dy>0) && (dic == 1)) {rect.top = i*32 - rect.height; dy=0; onGround=true;}
-					if ((dy<0) && (dic == 1))   {rect.top = i*32+32; dy=0; }
+					if ((dy<0) && (dic == 1)) {rect.top = i*32+32; dy=0;}
 				}
 				if(TileMap[i][j]=='0')
 				{
+					coin.play();
 					TileMap[i][j]=' ';
 				}
 			}	
@@ -136,7 +139,7 @@ bool life;
 	{
 		sprite.setTexture(image);
 		rect=FloatRect(x,y,180,180);
-		dx=0.05;
+		dx=0.07;
 		currentFrame=0;
 		life=true;
 	}
@@ -150,7 +153,7 @@ bool life;
 	}
 	
 	void Collision()
-  {
+   {
     for (int i = rect.top/32  ; i < (rect.top + rect.height)/32 ; i++)
     for (int j = rect.left/32 ; j < (rect.left + rect.width)/32 ; j++)
 	 {
@@ -196,6 +199,15 @@ int main()
 	enemy2.set(evel,2200,500);
 
 	Sprite tile(t);
+
+	SoundBuffer buffer1;
+	buffer1.loadFromFile("coin.ogg");
+	Sound coin(buffer1);
+	coin.play();
+	
+	SoundBuffer buffer2;
+	buffer2.loadFromFile("monster.ogg");
+	Sound monster(buffer2);
 
 	Clock clock;
 
@@ -245,6 +257,7 @@ int main()
 		{
 			enemy1.life=false;
 			std::cout<<"Game over";
+			monster.play();
 			window.close();
 		}
 
@@ -252,7 +265,9 @@ int main()
 		{
 			enemy2.life=false;
 			std::cout<<"Game over";
+			monster.play();
 			window.close();
+			
 		}
 
 		if (p.rect.left>800) ofSetX=p.rect.left - 1600/2;
@@ -277,6 +292,7 @@ int main()
 					wall.setPosition(j*32 - ofSetX,i*32- ofSetY);
 					window.draw(wall);
 				}
+	
 		window.draw(p.sprite);
 		window.draw(enemy1.sprite);
 		window.draw(enemy2.sprite);
